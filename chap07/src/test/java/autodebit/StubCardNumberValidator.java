@@ -15,11 +15,11 @@ public class StubCardNumberValidator extends CardNumberValidator {
     @Override
     public CardValidity validate(String cardNumber) {
         if (invalidNo != null && invalidNo.equals(cardNumber)) {
-            return CardValidity.INVALID;
+            return CardValidity.INVALID; //유효하지 않다.
         }
         if (theftNo != null && theftNo.equals(cardNumber)) {
-            return CardValidity.THEFT;
+            return CardValidity.THEFT; //훔친 카드
         }
-        return CardValidity.VALID;
+        return CardValidity.VALID; //유효
     }
 }

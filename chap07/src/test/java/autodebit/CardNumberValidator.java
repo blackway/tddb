@@ -12,7 +12,7 @@ public class CardNumberValidator {
     public CardValidity validate(String cardNumber) {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://some-external-pg.com/card"))
+                .uri(URI.create("https://some-external-pg.com/card"))  //해당 주소는 존재 하지 않늗다.(대역)
                 .header("Content-Type", "text/plain")
                 .POST(BodyPublishers.ofString(cardNumber))
                 .build();

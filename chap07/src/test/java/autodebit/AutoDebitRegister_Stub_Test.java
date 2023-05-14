@@ -8,41 +8,44 @@ import static autodebit.CardValidity.VALID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AutoDebitRegister_Stub_Test {
-    private AutoDebitRegister register;
-    private StubCardNumberValidator stubValidator;
-    private StubAutoDebitInfoRepository stubRepository;
+	private AutoDebitRegister register;
+	private StubCardNumberValidator stubValidator;
+	private StubAutoDebitInfoRepository stubRepository;
 
-    @BeforeEach
-    void setUp() {
-        stubValidator = new StubCardNumberValidator();
-        stubRepository = new StubAutoDebitInfoRepository();
-        register = new AutoDebitRegister(stubValidator, stubRepository);
-    }
+	@BeforeEach
+	void setUp() {
+		stubValidator = new StubCardNumberValidator();
+		stubRepository = new StubAutoDebitInfoRepository();
+		register = new AutoDebitRegister(stubValidator, stubRepository);
+		System.out.println("@BeforeEach");
+	}
 
-    @Test
-    void invalidCard() {
-        stubValidator.setInvalidNo("111122223333");
+	@Test
+	void invalidCard() {
+		// 유효하지 않을 번호 설정.
+		stubValidator.setInvalidNo("111122223333");
 
-        AutoDebitReq req = new AutoDebitReq("user1", "111122223333");
-        RegisterResult result = this.register.register(req);
+		AutoDebitReq req = new AutoDebitReq("user1", "111122223333");
+		RegisterResult result = this.register.register(req);
 
-        assertEquals(INVALID, result.getValidity());
-    }
+		assertEquals(INVALID, result.getValidity());
+	}
 
-    @Test
-    void theftCard() {
-        stubValidator.setTheftNo("1234567890123456");
+	@Test
+	void theftCard() {
+		// 도난 카드 번호 설정.
+		stubValidator.setTheftNo("1234567890123456");
 
-        AutoDebitReq req = new AutoDebitReq("user1", "1234567890123456");
-        RegisterResult result = this.register.register(req);
+		AutoDebitReq req = new AutoDebitReq("user1", "1234567890123456");
+		RegisterResult result = this.register.register(req);
 
-        assertEquals(CardValidity.THEFT, result.getValidity());
-    }
+		assertEquals(CardValidity.THEFT, result.getValidity());
+	}
 
-    @Test
-    void validCard() {
-        AutoDebitReq req = new AutoDebitReq("user1", "1234123412341234");
-        RegisterResult result = this.register.register(req);
-        assertEquals(VALID, result.getValidity());
-    }
+	@Test
+	void validCard() {
+		AutoDebitReq req = new AutoDebitReq("user1", "1234123412341234");
+		RegisterResult result = this.register.register(req);
+		assertEquals(VALID, result.getValidity());
+	}
 }

@@ -12,6 +12,7 @@ public class AutoDebitRegisterTest {
 
     @BeforeEach
     void setUp() {
+    	//아래 클래스는 대역이다. 
         CardNumberValidator validator = new CardNumberValidator();
         AutoDebitInfoRepository repository = new JpaAutoDebitInfoRepository();
         register = new AutoDebitRegister(validator, repository);
