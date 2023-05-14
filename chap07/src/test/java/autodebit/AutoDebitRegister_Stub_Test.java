@@ -23,7 +23,12 @@ public class AutoDebitRegister_Stub_Test {
 	@Test
 	void invalidCard() {
 		// 유효하지 않을 번호 설정.
-		stubValidator.setInvalidNo("111122223333");
+		if(active.equals("local")){
+
+			stubValidator.setInvalidNo("111122223333");
+		}else {
+			//진짜 카드사에서 받은 번호
+호		}
 
 		AutoDebitReq req = new AutoDebitReq("user1", "111122223333");
 		RegisterResult result = this.register.register(req);
