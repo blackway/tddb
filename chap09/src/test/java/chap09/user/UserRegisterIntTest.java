@@ -1,14 +1,17 @@
 package chap09.user;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.test.context.TestPropertySource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
+//@TestPropertySource(locations = "/init-data.sql")
 @SpringBootTest
 public class UserRegisterIntTest {
     @Autowired
@@ -23,6 +26,10 @@ public class UserRegisterIntTest {
                 "insert into user values (?,?,?) " +
                 "on duplicate key update password = ?, email = ?",
                 "cbk", "pw", "cbk@cbk.com", "pw", "cbk@cbk.com");
+//        jdbcTemplate.update(
+//                "insert into user values (?,?,?) " +
+//                "on duplicate key update password = ?, email = ?",
+//                "cbk", "pw", "cbk@cbk.com", "pw", "cbk@cbk.com");
 
         // 실행, 결과 확인
         assertThrows(DupIdException.class,
