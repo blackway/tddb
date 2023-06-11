@@ -30,6 +30,7 @@ public class CardNumberValidatorTest {
 
     @Test
     void valid() {
+        //외부 연동 mock 테스트
         wireMockServer.stubFor(post(urlEqualTo("/card"))
                 .withRequestBody(equalTo("1234567890"))
                 .willReturn(aResponse()
@@ -45,6 +46,7 @@ public class CardNumberValidatorTest {
 
     @Test
     void timeout() {
+        //타임아웃 테스트 5000 5초
         wireMockServer.stubFor(post(urlEqualTo("/card"))
                 .willReturn(aResponse()
                         .withFixedDelay(5000))
